@@ -6,7 +6,7 @@ local servers = {
 	"pyright",
 	-- "bashls",
 	"jsonls",
-	-- "yamlls",
+	"dockerls",
 }
 
 local settings = {
