@@ -39,7 +39,7 @@ for _, server in pairs(servers) do
 	opts = {
 		on_attach = require("user.lsp.handlers").on_attach,
 		capabilities = require("user.lsp.handlers").capabilities,
-	}
+}
 
 	server = vim.split(server, "@")[1]
 
