@@ -29,65 +29,78 @@ dap.configurations.python = {
 			elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
 				return cwd .. "/.venv/bin/python"
 			else
-				return "/usr/bin/python"
+				return "/usr/bin/python3"
 			end
 		end,
+	},
+	{
+		type = "python",
+		request = "launch",
+		name = "Django",
+    pythonPath = vim.fn.getcwd() .. "/.venv/bin/python",
+		program = vim.fn.getcwd() .. "/manage.py", -- NOTE: Adapt path to manage.py as needed
+		args = { "runserver", "--noreload" },
 	},
 }
 
 -- lldb
-dap.adapters.lldb = {
+-- dap.adapters.codelldb = {
+-- 	type = "server",
+-- 	port = "${port}",
+-- 	executable = {
+-- 		-- CHANGE THIS to your path!
+-- 		command = "/home/isaac/.local/share/nvim/mason/packages/codelldb/codelldb",
+-- 		args = { "--port", "${port}" },
+--
+-- 		-- On windows you may have to uncomment this:
+-- 		-- detached = false,
+-- 	},
+-- }
+--
+-- dap.configurations.cpp = {
+--   {
+--     name = "Launch file",
+--     type = "codelldb",
+--     request = "launch",
+--     program = function()
+--       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+--     end,
+--     cwd = '${workspaceFolder}',
+--     stopOnEntry = false,
+--   },
+-- }
+
+-- cpp dap
+dap.adapters.cppdbg = {
+	id = "cppdbg",
 	type = "executable",
-	-- command = "/home/isaac/.local/share/nvim/mason/packages/codelldb/codelldb",
-	command = "/usr/bin/lldb",
-	name = "lldb",
+	command = "/home/isaac/.local/share/nvim/mason/packages/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
 }
 
 dap.configurations.cpp = {
 	{
-		name = "Launch",
-		type = "lldb",
+		name = "Launch file",
+		type = "cppdbg",
 		request = "launch",
 		program = function()
 			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
 		end,
 		cwd = "${workspaceFolder}",
-		stopOnEntry = false,
-		args = {},
+		stopAtEntry = true,
+	},
+	{
+		name = "Attach to gdbserver :1234",
+		type = "cppdbg",
+		request = "launch",
+		MIMode = "gdb",
+		miDebuggerServerAddress = "localhost:1234",
+		miDebuggerPath = "/usr/bin/gdb",
+		cwd = "${workspaceFolder}",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
 	},
 }
-
--- cpp dap
--- dap.adapters.cppdbg = {
--- 	id = "cppdbg",
--- 	type = "executable",
--- 	command = "/home/isaac/.local/share/nvim/mason/packages/cpptools/extension/debugAdapters/bin/OpenDebugAD7",
--- }
---
--- dap.configurations.cpp = {
--- 	{
--- 		name = "Launch file",
--- 		type = "cppdbg",
--- 		request = "launch",
--- 		program = function()
--- 			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
--- 		end,
--- 		cwd = "${workspaceFolder}",
--- 		stopAtEntry = true,
--- 	},
--- 	{
--- 		name = "Attach to gdbserver :1234",
--- 		type = "cppdbg",
--- 		request = "launch",
--- 		MIMode = "gdb",
--- 		miDebuggerServerAddress = "localhost:1234",
--- 		miDebuggerPath = "/usr/bin/gdb",
--- 		cwd = "${workspaceFolder}",
--- 		program = function()
--- 			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
--- 		end,
--- 	},
--- }
 
 local dap_ui_status_ok, dapui = pcall(require, "dapui")
 if not dap_ui_status_ok then
