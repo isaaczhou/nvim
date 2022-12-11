@@ -37,38 +37,40 @@ dap.configurations.python = {
 		type = "python",
 		request = "launch",
 		name = "Django",
-    pythonPath = vim.fn.getcwd() .. "/.venv/bin/python",
+		pythonPath = vim.fn.getcwd() .. "/.venv/bin/python",
 		program = vim.fn.getcwd() .. "/manage.py", -- NOTE: Adapt path to manage.py as needed
 		args = { "runserver", "--noreload" },
 	},
 }
 
--- lldb
--- dap.adapters.codelldb = {
--- 	type = "server",
--- 	port = "${port}",
--- 	executable = {
--- 		-- CHANGE THIS to your path!
--- 		command = "/home/isaac/.local/share/nvim/mason/packages/codelldb/codelldb",
--- 		args = { "--port", "${port}" },
---
--- 		-- On windows you may have to uncomment this:
--- 		-- detached = false,
--- 	},
--- }
---
--- dap.configurations.cpp = {
---   {
---     name = "Launch file",
---     type = "codelldb",
---     request = "launch",
---     program = function()
---       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
---     end,
---     cwd = '${workspaceFolder}',
---     stopOnEntry = false,
---   },
--- }
+-- node-debug2
+-- /home/isaac/.local/share/nvim/mason/packages/node-debug2-adapter/out/src/nodeDebug.js
+dap.adapters.node2 = {
+	type = "executable",
+	command = "node",
+	args = {
+		os.getenv("HOME") .. "/.local/share/nvim/mason/packages/node-debug2-adapter/out/src/nodeDebug.js",
+	},
+}
+dap.configurations.javascript = {
+	{
+		name = "Launch",
+		type = "node2",
+		request = "launch",
+		program = "${file}",
+		cwd = vim.fn.getcwd(),
+		sourceMaps = true,
+		protocol = "inspector",
+		console = "integratedTerminal",
+	},
+	{
+		-- For this to work you need to make sure the node process is started with the `--inspect` flag.
+		name = "Attach to process",
+		type = "node2",
+		request = "attach",
+		processId = require("dap.utils").pick_process,
+	},
+}
 
 -- cpp dap
 dap.adapters.cppdbg = {
