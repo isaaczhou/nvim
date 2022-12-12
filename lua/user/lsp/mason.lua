@@ -8,6 +8,7 @@ local servers = {
 	"jsonls",
 	"dockerls",
 	"clangd",
+  "gopls",
 }
 
 local settings = {

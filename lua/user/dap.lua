@@ -104,6 +104,23 @@ dap.configurations.cpp = {
 	},
 }
 
+--go dap
+dap.adapters.go = {
+  type = 'executable';
+  command = 'node';
+  args = {os.getenv('HOME') .. '/.local/share/nvim/mason/packages/go-debug-adapter/extension/dist/debugAdapter.js'};
+}
+dap.configurations.go = {
+  {
+    type = 'go';
+    name = 'Debug';
+    request = 'launch';
+    showLog = false;
+    program = "${file}";
+    dlvToolPath = vim.fn.exepath('/home/isaac/go/bin/dlv')  -- Adjust to where delve is installed
+  },
+}
+
 local dap_ui_status_ok, dapui = pcall(require, "dapui")
 if not dap_ui_status_ok then
 	return
