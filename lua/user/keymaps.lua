@@ -68,3 +68,10 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
+keymap("n", "<F5>", ":DapToggleBreakpoint<CR>", opts)
+keymap("n", "<F6>", ":DapContinue<CR>", opts)
+keymap("n", "<F7>", ":DapStepInto<CR>", opts)
+keymap("n", "<F8>", ":DapStepOver<CR>", opts)
+keymap("n", "<F9>", ":DapStepOut<CR>", opts)
+keymap("n", "<F10>", ":DapTerminate<CR>", opts)
+
