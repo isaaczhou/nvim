@@ -6,7 +6,8 @@ end
 dap.adapters.python = {
 	type = "executable",
 	-- command = "/usr/bin/python",
-	command = "/home/isaac/anaconda3/bin/python",
+	--command = "/home/isaac/anaconda3/bin/python",
+	command = "/usr/bin/python3",
 	args = { "-m", "debugpy.adapter" },
 }
 
