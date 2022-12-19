@@ -5,7 +5,8 @@ end
 
 dap.adapters.python = {
 	type = "executable",
-	command = "/usr/bin/python",
+	-- command = "/usr/bin/python",
+	command = "/home/isaac/anaconda3/bin/python",
 	args = { "-m", "debugpy.adapter" },
 }
 
@@ -39,6 +40,14 @@ dap.configurations.python = {
 		name = "Django",
 		pythonPath = vim.fn.getcwd() .. "/.venv/bin/python",
 		program = vim.fn.getcwd() .. "/manage.py", -- NOTE: Adapt path to manage.py as needed
+		args = { "runserver", "--noreload" },
+	},
+	{
+		type = "python",
+		request = "launch",
+		name = "Flask",
+		pythonPath = "/home/isaac/anaconda3/envs/biomefx/bin/python",
+		program = "./manager.py", -- NOTE: Adapt path to manage.py as needed
 		args = { "runserver", "--noreload" },
 	},
 }
