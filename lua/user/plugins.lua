@@ -62,6 +62,9 @@ return packer.startup(function(use)
 	use({ "lunarvim/darkplus.nvim", commit = "13ef9daad28d3cf6c5e793acfc16ddbf456e1c83" })
 	use({ "sainnhe/sonokai", commit = "f53ac94c857e2119403ce12bfba200cd6ecc2e33" })
 	use({ "sainnhe/gruvbox-material", commit = "af9a1d60ca4d7e2ca34c55c46d1dbea0769d9244" })
+	use({ "ellisonleao/gruvbox.nvim", commit = "df149bccb19a02c5c2b9fa6ec0716f0c0487feb0" })
+	use({ "rebelot/kanagawa.nvim" })
+	use({ "patstockwell/vim-monokai-tasty" })
 
 	-- Cmp
 	use({ "hrsh7th/nvim-cmp", commit = "b0dff0ec4f2748626aae13f011d1a47071fe9abc" }) -- The completion plugin
@@ -97,6 +100,13 @@ return packer.startup(function(use)
 
 	-- Git
 	use({ "lewis6991/gitsigns.nvim", commit = "2c6f96dda47e55fa07052ce2e2141e8367cbaaf2" })
+
+	-- Emmet
+	use({
+		"mattn/emmet-vim",
+		ft = { "html", "css", "xml", "xhtml", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+	})
+
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

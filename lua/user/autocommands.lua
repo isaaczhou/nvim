@@ -28,6 +28,9 @@ vim.cmd [[
     autocmd!
     autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
   augroup end
+
+  autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType xml,jsx,javascript,typescript setlocal omnifunc=xmlcomplete#CompleteTags
 ]]
 
 -- Autoformat
